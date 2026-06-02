@@ -1,12 +1,16 @@
 [project]
 name = "car-dealership"
-version = "0.1.0"
-description = "Add your description here"
+version = "1.0.0"
+description = "Event-driven preprocessing pipeline for car dealership sales data"
 readme = "README.md"
 requires-python = ">=3.12"
 dependencies = [
-    "matplotlib>=3.10.9",
-    "pandas>=3.0.3",
+    "pandas>=2.2.3",
+]
+
+[project.optional-dependencies]
+train = [
     "scikit-learn>=1.8.0",
+    "matplotlib>=3.10.9",
     "seaborn>=0.13.2",
 ]
