@@ -35,7 +35,7 @@ def validate_required_columns(dataset: pd.DataFrame) -> None:
     if missing_columns:
         raise ValueError(
             f"Input CSV is missing required columns: {missing_columns}"
-        )
+        ) # Here if it would be in production, it would be better to use status codes.
 
 
 def remove_rows_missing_critical_values(dataset: pd.DataFrame, critical_columns: list[str]) -> pd.DataFrame:
