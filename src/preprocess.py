@@ -29,6 +29,15 @@ CRITICAL_COLUMNS = [
     "price",
 ]
 
+BRAND_CORRECTIONS = {
+    "maxda": "mazda",
+    "porcsche": "porsche",
+    "porcshce": "porsche",
+    "toyouta": "toyota",
+    "vokswagen": "volkswagen",
+    "vw": "volkswagen"
+}
+
 def validate_required_columns(dataset: pd.DataFrame) -> None:
     missing_columns = [column for column in SELECTED_FEATURES if column not in dataset.columns]
 
@@ -45,16 +54,11 @@ def remove_rows_missing_critical_values(dataset: pd.DataFrame, critical_columns:
 def preprocess_csv(input_path: str, output_path: str) -> None:
     dataset = pd.read_csv(input_path)
 
-    dataset.columns = (
-        dataset.columns
-        .str.strip()
-        .str.lower()
-    )
+    dataset.columns = (dataset.columns.str.strip().str.lower())
 
     validate_required_columns(dataset)
 
-    to_separate_carname = dataset['carname'].str.split(' ',expand=True)
-    dataset['carname'] = to_separate_carname.iloc[0:, 0].to_list()
+    dataset['carname'] = (dataset['carname'].str.split().str[0].str.lower().replace(BRAND_CORRECTIONS))
 
     dataset = dataset[SELECTED_FEATURES].copy()
 
