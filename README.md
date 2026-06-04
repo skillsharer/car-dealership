@@ -45,14 +45,14 @@ The project is built up under different subdirectories. Let's see them one-by-on
 
 I went back to this stage multiple times, because in the training phase many new findings emerged and needed to improve my data cleansing methods.
 
-- `./model` directory contains my ML model training experiments. The notebook contains the necessary data handling methods, along with the training and evaluation of the model. I have 4 experiments in the notebook to try out different methods to improve the model performance.
+- `./model` directory contains my ML model training experiments. The notebook contains the necessary data handling methods, along with the training and evaluation of the model. I have 4 experiments in the notebook to try out different methods to improve the model performance. See details [here](./model/README.md).
 
 - `./scripts`, `terraform` and `src`: These are those directories which responsible for the `AWS` data preprocessing infrastructure. `./scripts/build_lambda.sh` is my local build script which creates a `.zip` file under the `dist` directory for the lambda service. For the infrastructure blueprint, I required to use terraform, therefore those files take place in `terraform` folder. `src` is the heart of the service, where lambda function and the helper functions take place.
 
 ## Design considerations:
 I used `.ipynb` for data and ML training experiments. This was handy for fast try outs and reusability, but in a real production environment it is hard to maintain, hard to review. I do not wanted to upload `.csv` files to git, I always handle them separately from projects to never expose any private information. 
 
-By the way, at the current project state the landing bucket purely gets the private information which is also not good. In a real production environment we shall hide those information. The terraform files create two `S3` buckets (LANDING and CURATED) and a `lambda` function which loads the `.csv` from the landing zone, then deletes the missing rows and not required columns from the data, then puts the cleaned file to the curated zone. For the lambda function, I needed to create a .bash script to build and pack together a necessary package. I could use Dockerfile as well, but I wanted to keep lightweight the project. Additionally, in `AWS`, I created a sub user to avoid root user usage and follow least privilege principles.  
+By the way, at the current project state the landing bucket purely gets the private information which is also not good. In a real production environment we shall hide those information. The terraform files create two `S3` buckets (LANDING and CURATED) and a `lambda` function which loads the `.csv` from the landing zone, then deletes the missing rows and not required columns from the data, then puts the cleaned file to the curated zone. For the lambda function, I needed to create a `bash` script to build and pack together the necessary packages. I could use Dockerfile as well, but I wanted to keep lightweight the project. Additionally, in `AWS`, I created a sub user to avoid root user usage and follow least privilege principles.  
 
 For the ML part I wanted to start with the simplest linear regression model and experiment iteratively. I put here the further data imputation and conversion methods, because both the task said that lambda is only for deletion and my consideration is aligned as well, because heavy data processing shall be done elsewhere in the pipeline not in `lambda`.
 
@@ -113,11 +113,10 @@ CURATED_BUCKET=$(terraform output -raw curated_bucket_name)
 3. Check, whether data processing is finished or not: `aws s3 ls "s3://$CURATED_BUCKET/curated/"`
 4. Download processed data: `aws s3 cp "s3://$CURATED_BUCKET/curated/sample_input.csv" ./model/processed_output.csv`
 
-
 ML train:
 
 The notebook requires a `processed_output.csv` inside that directory to obtain the data. Of course, you can use your own path too.
-For my research experiences and thoughts, see the readme under `model` directory.
+For my research experiences and thoughts, see the [readme](./model/README.md) under `model` directory.
 
 ## AI USAGE STATEMENT:
 
