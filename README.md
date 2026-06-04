@@ -30,7 +30,7 @@ Train a basic car price estimator using preprocessing AWS lambda function.
     - `aws s3 ls "s3://$CURATED_BUCKET/curated/"` - Verify file appears in curated bucket
     - `aws s3 cp "s3://$CURATED_BUCKET/curated/sample_input.csv" ./model/processed_output.csv`
     - Use `model/train.ipynb` to train ML model.
-    - (`terraform destroy`)
+    - (`terraform destroy` - do not forget to remove the `.csv` files first from the bucket.)
 
 
 ## Repo design and help for the review:
