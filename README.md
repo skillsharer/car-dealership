@@ -9,14 +9,14 @@ Train a basic car price estimator using preprocessing AWS lambda function.
 
 1. Prerequisites:  
     - uv
-    - AWS account with permissions for S3, Lambda, IAM, CloudWatch
+    - AWS account with permissions for S3, Lambda, IAM
     - AWS CLI configured
     - Terraform installed
     - .env vars filled out
 
     See details below in the document.
 
-2. Exact order of command steps:
+2. Exact order of commands:
     - `uv venv .venv`
     - `source .venv/bin/activate`
     - `uv sync --extra train`
