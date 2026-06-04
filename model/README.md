@@ -203,7 +203,7 @@ They want you to create a notebook that takes the data from the curated zone, tr
 
 The baseline performs reasonably on the test set. However, we possibly see overfitting on the train set (especially when I added engineered features) and also huge errors especially when prices are higher. Currently I just multiplied the model output by 0.95 to 'slightly underestimate' the price as it was in the task requirements, however it is not a robust solution. A better solution would be Quantile Regression, where we can train a lower percentile model (e.g. 45th percentile).
 
-- Feature engineering: Production year would help a lot I think, which will tells us the age of the car. Also, mileage would help a lot, because these two have a huge effect on the used car prices. I was thinking about to engineer a feature which would make assumption of the vehicle age (based on model production year range and sale date), but my time was limited.
+- Feature engineering: Production year would help a lot I think, which will tells us the age of the car at the time of the sale. Also, mileage would help too, because these two features have a huge effect on the used car prices. I was thinking about to engineer a feature which would make assumption of the vehicle age (based on model production year range and sale date), but my time was limited.
 
 - Additional data collection: To avoid overfitting, additional data gathering also could help.
 
